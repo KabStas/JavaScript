@@ -1,0 +1,42 @@
+<html>
+    <head>
+        Описать рекурсивную функцию equal(N, S) (где N и S – неотрицательные целые числа), 
+        которая проверяет, совпадает ли сумма цифр в десятичной записи числа N со значением S.
+        Например: equal(12345,15) = true, equal(24,7) = false, equal(100,1) = true.
+        <script>
+            'use strict'
+           
+            function equal(N,S) {
+                
+                
+                digit = N % 10;
+                N = Math.floor(N /10);
+                sum += digit;
+                
+                if (N >= 1) {
+                    equal(N,S);    
+                } else {
+                    if (sum == S) {
+                        result = true;
+                    }
+                }
+                return result; 
+            }
+
+            let sum = 0;
+            let digit;
+            let result = false;
+            let N = +prompt("Введите число N:");
+            let S = +prompt("Введите число S:");
+            result = equal(N,S);
+
+            //Вывод результатов
+            console.log("N = " + N); 
+            console.log("S = " + S); 
+            alert(`Утверждение, что сумма цифр числа N равна числу S ${(result == true)?"истинно":"ложно"}`);
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
