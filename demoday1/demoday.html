@@ -7,22 +7,10 @@
         на наименьший элемент соответствующего столбца матрицы M1 и М6 
         суммированием элементов каждого столбца матрицы М4 с наибольшим элементом 
         соответствующей строки матрицы М2.
-        
         Напечатать матрицы М5, М6. <br>
         <script>
             'use strict'
-           
-            function outputtingArray( array, arrayName ) {
-
-                document.write(`Матрица ${arrayName}: <br\>`);
-
-                    for (let i = 0; i < array.length; i++) {
-
-                        document.write(array[i] + "<br\>"); 
-                    }
-
-                document.write("<br\>");    
-            }
+            //Ввод исходных данных
 
             let M;
             let N;
@@ -108,8 +96,6 @@
             for (let i = 0; i < M; i++) {
                 array[i] = M1[i][pointer - i];
             }
-            
-            outputtingArray(M1, "M1");
             console.log("M1:");
             console.log(M1);
             console.log("array:");
@@ -144,8 +130,6 @@
                     M3[i][pointer - i] = array[i];    
                 }
             }
-            outputtingArray(M3, "M3");
-            
             console.log("M3:");
             console.log(M3);
 
@@ -158,8 +142,6 @@
             for (let i = 0; i < N; i++) {
                 array[i] = M2[i][pointer - i];
             }
-            
-            outputtingArray(M2, "M2");
             console.log("M2:");
             console.log(M2);
             console.log("array:");
@@ -194,8 +176,6 @@
                     M4[i][pointer - i] = array[i];    
                 }
             }
-
-            outputtingArray(M4, "M4");
             console.log("M4:");
             console.log(M4);
 
@@ -231,7 +211,6 @@
                    M5[i][j] = M3[i][j] * array[i]; 
                 }
             }
-            outputtingArray(M5, "M5");
             console.log("М5:");
             console.log(M5);
 
@@ -267,14 +246,11 @@
                    M6[i][j] = M4[i][j] + array[j]; 
                 }
             }
-            outputtingArray(M6, "M6");
             console.log("М6:");
             console.log(M6);
 
             //Вывод результатов 
 
-            
-            /*
             document.write("Матрица М5: <br\>");
 
             for (let i = 0; i < M5.length; i++) {
@@ -289,7 +265,7 @@
                 
                 document.write(M6[i] + "<br\>"); 
             }
-            */
+
         </script>
     </head>
     <body>		
