@@ -1,0 +1,46 @@
+<html>
+    <head>
+        Найти корни нелинейного уравнения F(x)=3x-sin(x)-7 методом половинного деления. 
+        Вычисление значений F(x) организовать через функцию.    
+        <script>
+            'use strict'
+           
+            function getF(x) {
+                
+                F = 3 * x - Math.sin(x) - 7;
+                return F;   
+            }
+
+            let xLeft = +prompt("Введите левую границу отрезка:");
+            let xRight = +prompt("Введите правую границу отрезка:");
+            let E = 0.001;
+            let xMid;
+            let F;
+            let result;
+            
+            if (getF( xLeft ) == 0) {
+                result = xLeft;
+            } else if (getF( xRight ) == 0) {
+                result = xRight;
+            } else {
+                while ((xRight - xLeft) > E) {
+                    xMid = (xLeft + xRight)/2;
+                    console.log("xMid = " + xMid);
+                    if ((getF( xLeft ) * getF( xMid )) < 0) {
+                        xRight = xMid;
+                    } else {
+                        xLeft = xMid;
+                    }
+                    result = xMid;
+                }
+            }
+            
+            //Вывод результатов
+
+            console.log("Корень нелинейного уравнения: " + result);
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
