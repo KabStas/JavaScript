@@ -1,0 +1,35 @@
+<html>
+    <head>
+        Написать функцию, которая из строки удаляет лишние пробелы, 
+        то есть в преобразованной строке не должно быть более одного пробела подряд. 
+        Вывод организовать через alert или в консоль. 
+        Решение только через JavaScript (работа со строками), DOM не используем.
+        <script>
+            'use strict'
+           
+            function spaceRemoving( string ) {
+                for (let i = 0; i < string.length; i++) {
+                    
+                    if (string.charAt(i) == ' ' && string.charAt(i+1) == ' ') {
+                        continue; 
+                    }
+                    string1 += string.charAt(i);
+                }
+                
+             return string1;   
+            }
+
+            let string = prompt("Введите строку:");
+            let string1 = "";
+            string1 = spaceRemoving( string );
+ 
+            //Вывод результатов
+
+            console.log("Введенная строка: " + string);
+            console.log("Преобразованная строка: " + string1);
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
