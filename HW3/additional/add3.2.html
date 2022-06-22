@@ -1,0 +1,31 @@
+<html>
+    <head>
+        Создать скрипт,
+        который случайным образом генерирует значения переменных x, y, z  и 
+        вычисляет значение логического выражения (x  * y) -> (y = z). 
+        Переменные могут принимать значения 0 или 1. Результат выражения
+        должен быть выведен в виде true или false.  Где * - конъюнкция, = - эквивалентность,
+         -> - импликация (следование).
+        <script>
+            //Ввод исходных данных
+            let x = Boolean(Math.floor( Math.random() * 2 ));
+            let y = Boolean(Math.floor( Math.random() * 2 ));
+            let z = Boolean(Math.floor( Math.random() * 2 ));
+
+            //Решение 
+            let exp1 = x && y;
+            let exp2 = y == z;
+            let exp3 = !exp1 || exp2;  
+            
+            //Вывод результата
+                //Для проверки работы
+                console.log(exp1);
+                console.log(exp2);
+                console.log(exp3);
+            alert("Результат выражения - " + exp3);
+             
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

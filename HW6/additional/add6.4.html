@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <script>
+            'use strict'
+            //Ввод исходных данных
+
+            let S = 200;
+            let N = 15;
+            let temp;
+            let sum = 0;
+            let max;
+            let quantity;
+            let array = [];
+            let input = +prompt("Для самостоятельного ввода значений введите 1");
+
+            switch (input) {
+                case 1:
+
+                    S = +prompt("Введите размер свободного места на диске (1 - 100 000), S = ");
+                    N = +prompt("Введите количество пользователей (1 - 10 000), N = ");
+
+                    for (let i = 0; i < N; i++) {
+
+                        array[i] = +prompt("Введите значение объема памяти " + (i+1) + 
+                            "-го пользователя (1 - 100):");
+                    }
+                    break;
+                    
+                default:
+                    array = [10, 34, 31, 5, 37, 24, 21, 42, 41, 39, 3, 2, 68, 50, 45];            
+            }
+
+            //Решение
+            //Сортировка массива
+
+            N = array.length;
+            
+            for (let i = 0; i < N - 1; i++) {
+
+                for (let j = 0; j < N - 1 - i; j++) {
+
+                    if (array[j+1] < array[j]) {
+                        
+                        temp = array[j+1];
+                        array[j+1] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+            console.log(array);
+
+            //Вычисление максимально возможного количества пользователей и
+            //наибольшего объема файла
+
+            for (let i = 0; i < N; i++) {
+                
+                if (sum > S) {
+                    quantity = i-1;  
+                    max = array[i-2];
+                    break;
+                }
+                sum += array[i];
+                console.log("Кол-во = " + (i+1) + "; знач-е = " + array[i] + "; сум = " + sum);
+            }
+            console.log("S = " + S);
+            
+            //Вывод результатов
+
+            alert("Можно сохранить файлы максимум пользователей: " + quantity + "\n" + 
+                "Наибольший объём файла: " + max);
+        
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

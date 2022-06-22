@@ -1,0 +1,30 @@
+<html>
+    <head>
+        Вычислить произведение, пока оно не станет больше наперед
+        заданного числа N. Цикл выбрать самостоятельно.
+        <script>
+            
+            //Ввод исходных данных
+            
+            let N = +prompt("Введите число N:"); 
+            let num = 0.1;
+            let mult = 1;
+           
+            //Решение
+
+            do {
+                mult *= (1 + Math.abs(Math.sin(num)));
+                console.log (mult);
+                num += 0.1;   
+            } while (mult <= N);
+
+            //Вывод результатов
+        
+            console.log ("N = " + N);
+            alert ("Произведение  = " + mult);
+
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

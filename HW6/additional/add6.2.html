@@ -1,0 +1,83 @@
+<html>
+    <head>
+        В массиве целых чисел найти наиболее часто встречающееся число. 
+        Если таких чисел несколько, то определить наименьшее из них.
+        <script>
+            
+            //Ввод исходных данных
+
+            let array1 = [];
+            let array2 = [];
+            let asArray = new Map();
+            let N = 10;
+            let max = 0;
+            let minNumber;
+            let input = +prompt("Для самостоятельного ввода значений введите 1");
+            switch (input) {
+                case 1:
+                    for (let i = 0; i < N; i++) {
+                        array1[i] = +prompt(i+1 + "-й элемент массива равен =") 
+                    };
+                    break;
+                default:
+                    array1 = [1, 5, 5, 4, 6, 3, 2, 2, 7, 1]; 
+                    break;  
+            };
+
+            //Решение 
+             
+            //складываем значения в ассоциативный массив ['число', 'количество повторений'] 
+            for (let i = 0; i < array1.length; i++) {
+
+                count = 1;
+
+                if (asArray.has(array1[i])) {
+                    count = asArray.get(array1[i])
+                    count++;
+                    asArray.set(array1[i], count)
+                } else {
+                    asArray.set(array1[i], count) 
+                }
+            }
+
+            //определяем наиболее часто встречающее число
+            for (let pair of asArray.entries()) {
+
+                if (pair[1] > max) { 
+                    max = pair[1];
+                } 
+
+            }
+            //проверяем, если таких чисел несколько, складываем в массив        
+            for (let pair of asArray.entries()) {
+
+                if (pair[1] == max) { 
+                    
+                    array2.push( pair[0] );
+                } 
+
+            }
+            //выбираем наименьшее из них
+            minNumber = array2[0];
+            for (let i = 1; i < array2.length; i++) {
+                if (array2[i] < minNumber) {
+                    minNumber = array2[i];
+                }
+            }
+
+            //Вывод результатов
+
+            console.log("Массив");
+            console.log(array1);
+            console.log("Ассоциативный массив ['число', 'количество повторений']:");
+            console.log(asArray);
+            console.log("Массив наиболее часто встречающихся чисел")
+            console.log(array2);
+            console.log("Наименьшее из наиболее часто встречающихся чисел: " + minNumber);
+            alert("Наименьшее из наиболее часто встречающихся чисел: " + minNumber);
+             
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

@@ -1,0 +1,265 @@
+<html>
+    <head>
+        Даны две числовые квадратные матрицы M1(М, M) и M2(N, N), (М, N - четные).
+        Расположить элементы на побочных диагоналях в порядке возрастания 
+        (в направлении сверху вниз), то есть получить матрицы М3 и М4.
+        Получить результирующие матрицы: М5 умножением элементов каждой строки матрицы М3 
+        на наименьший элемент соответствующего столбца матрицы M1 и М6 
+        суммированием элементов каждого столбца матрицы М4 с наибольшим элементом 
+        соответствующей строки матрицы М2.
+        Напечатать матрицы М5, М6. Организовать вывод всех матриц из задачи к демодню 
+        через процедуру. <br>
+        <script>
+            'use strict'
+           
+            function outputtingArray( array, arrayName ) {
+
+                document.write(`Матрица ${arrayName}: <br\>`);
+
+                    for (let i = 0; i < array.length; i++) {
+
+                        document.write(array[i] + "<br\>"); 
+                    }
+
+                document.write("<br\>");    
+            }
+
+            let M;
+            let N;
+            let pointer;
+            let temp;
+            let minNum;
+            let maxNum;
+            let M1 = [];
+            let M2 = [];
+            let M3 = [];
+            let M4 = [];
+            let M5 = [];
+            let M6 = [];
+            let array = []; //вспомогательный массив  
+            let input = +prompt("Для самостоятельного ввода значений введите 1\n" + 
+                                "Для случайной генерации значений введите 2");
+            switch (input) {
+                case 1:
+                    M = +prompt("Введите размерность квадратной матрицы M1, M (обязательно четное число) = ");
+                    N = +prompt("Введите размерность квадратной матрицы M2, N (обязательно четное число) = ");
+
+                    if (M % 2 == 0 &&  N % 2 == 0) {
+                        for (let i = 0; i < M; i++) {
+                            M1[i] = []; 
+                            for (let j = 0; j < M; j++) {
+                                M1[i][j] = +prompt("Введите элемент [" + i + "][" + j + "] массива M1:"); 
+                            }
+                        }
+                        for (let i = 0; i < N; i++) {
+                            M2[i] = []; 
+                            for (let j = 0; j < N; j++) {
+                                M2[i][j] = +prompt("Введите элемент [" + i + "][" + j + "] массива M2:"); 
+                            }
+                        }
+                        break;
+                    } else {
+                        alert("М и N должны быть четными! Программа выполнит случайную генерацию матриц!");
+                    }   
+                case 2: 
+                    M = Math.ceil(3*Math.random()) * 2;
+                    N = Math.ceil(3*Math.random()) * 2;
+
+                    for (let i = 0; i < M; i++) {
+                        M1[i] = []; 
+                        for (let j = 0; j < M; j++) {
+                            M1[i][j] = Math.round(9*Math.random()); 
+                        }
+                    }
+                    for (let i = 0; i < N; i++) {
+                        M2[i] = []; 
+                        for (let j = 0; j < N; j++) {
+                            M2[i][j] = Math.round(9*Math.random()); 
+                        }
+                    }
+                    break;
+                default:
+                    M1 = [
+                        [2, 5, 2, 8, 9, 1],
+                        [4, 0, 5, 1, 1, 8],
+                        [1, 2, 7, 8, 9, 5],
+                        [8, 8, 5, 1, 2, 4],
+                        [5, 1, 1, 8, 9, 1],
+                        [5, 9, 5, 5, 2, 6]           
+                    ];
+                    M2 = [
+                        [1, 4, 2, 3],
+                        [5, 0, 2, 1],
+                        [2, 2, 1, 4],
+                        [1, 1, 4, 3]        
+                    ];   
+            }
+            
+            //Решение
+
+            // 1. Получение М3 и М4
+            // Забираем элементы с побочной диагонали у матрицы М1
+            // и складываем в массив
+
+            M = M1.length;
+            pointer = M1.length - 1;
+            array = [];
+
+            for (let i = 0; i < M; i++) {
+                array[i] = M1[i][pointer - i];
+            }  
+
+            console.log("Элементы побочной диагонали М1:");
+            console.log(array);
+            
+            //сортируем прямым обменом
+            M = array.length;
+
+            for (let i = 0; i < M - 1; i++) {
+
+                for (let j = 0; j < M - 1 - i; j++) {
+
+                    if ( array[j+1] < array[j]) {
+                        
+                        temp = array[j+1];
+                        array[j+1] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+            console.log("sorted элементы побочной диагонали М1:");
+            console.log(array);
+
+            //Копируем М1 в M3 и меняем побочную диагональ
+            M = M1.length;
+            pointer = M1.length - 1;
+
+            for (let i = 0; i < M; i++) {
+                M3[i] = []; 
+                for (let j = 0; j < M; j++) {
+                    M3[i][j] = M1[i][j];
+                    M3[i][pointer - i] = array[i];    
+                }
+            }
+
+            //Забираем элементы с побочной диагонали у матрицы М2
+
+            N = M2.length;
+            array = [];
+            pointer = M2.length - 1;
+
+            for (let i = 0; i < N; i++) {
+                array[i] = M2[i][pointer - i];
+            }
+            console.log("Элементы побочной диагонали М2:");
+            console.log(array);
+            
+            //сортируем прямым обменом
+            N = array.length;
+
+            for (let i = 0; i < N - 1; i++) {
+
+                for (let j = 0; j < N - 1 - i; j++) {
+
+                    if ( array[j+1] < array[j]) {
+                        
+                        temp = array[j+1];
+                        array[j+1] = array[j];
+                        array[j] = temp;
+                    }
+                }
+            }
+            console.log("sorted элементы побочной диагонали М2:");
+            console.log(array);
+
+            //вставляем в M4
+            N = M2.length;
+            pointer = M2.length - 1;
+
+            for (let i = 0; i < N; i++) {
+                M4[i] = []; 
+                for (let j = 0; j < N; j++) {
+                    M4[i][j] = M2[i][j];
+                    M4[i][pointer - i] = array[i];    
+                }
+            }
+
+            //2. Получение М5
+            //Находим наименьший элемент в каждом столбце матрицы М1 
+            array = [];
+
+            M = M1.length;
+
+            for (let j = 0; j < M; j++) {
+
+                minNum = M1[0][j];
+
+                for (let i = 1; i < M; i++) {
+                    if (M1[i][j] < minNum) {
+                        minNum = M1[i][j]; 
+                    }
+                }
+                array[j] = minNum;
+            }
+
+            console.log("Наименьшие элементы каждого столбца матрицы М1:");
+            console.log(array);
+
+            //Вычисляем элементы матрицы М5 
+            M = M3.length;
+
+            for (let i = 0; i < M; i++) {
+
+                M5[i] = [];
+
+                for (let j = 0; j < M; j++) {
+                   M5[i][j] = M3[i][j] * array[i]; 
+                }
+            }
+
+            //3. Получение М6
+            //Находим наибольший элемент в каждой строке матрицы М2 
+            array = [];
+
+            N = M2.length;
+
+            for (let i = 0; i < N; i++) {
+
+                maxNum = M2[i][0];
+
+                for (let j = 1; j < N; j++) {
+                    if (M2[i][j] > maxNum) {
+                        maxNum = M2[i][j]; 
+                    }
+                }
+                array[i] = maxNum;
+            }
+
+            console.log("Наибольшие элементы каждой строки матрицы М2:");
+            console.log(array);
+
+            //Вычисляем элементы матрицы М6 
+            N = M4.length;
+
+            for (let i = 0; i < N; i++) {
+
+                M6[i] = [];
+
+                for (let j = 0; j < N; j++) {
+                   M6[i][j] = M4[i][j] + array[j]; 
+                }
+            }
+
+            //Вывод результатов
+            outputtingArray(M1, "M1");
+            outputtingArray(M2, "M2");
+            outputtingArray(M3, "M3");
+            outputtingArray(M4, "M4");
+            outputtingArray(M5, "M5");
+            outputtingArray(M6, "M6");
+            
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

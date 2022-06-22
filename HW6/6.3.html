@@ -1,0 +1,79 @@
+<html>
+    <head>
+        В числовой последовательности определить количество и 
+        произведение элементов расположенных между максимальным и 
+        минимальным. Максимальный и минимальный элементы в расчёт 
+        количества и произведения не включать.
+        <script>
+            'use strict'
+            //Ввод исходных данных
+
+            let N = 6;
+            let array = [];
+            let min;
+            let minI = 0; 
+            let max;
+            let maxI = 0;
+            let mult = 1;
+            let input = +prompt("Для самостоятельного ввода значений введите 1");
+            switch (input) {
+                case 1:
+                    for (let i = 0; i < N; i++) {
+                        array[i] = +prompt(i+1 + "-й элемент массива равен =") 
+                    };
+                    break;
+                default:
+                    array = [5, 7, 10, 40, 20, 8]; 
+                    break;  
+            };
+
+            //Решение
+            min = array[0];
+            max = array[0];
+
+            for (let i = 1; i < N; i++) {
+
+                if (array[i] < min) {
+                    min = array[i];
+                    minI = i;
+                };
+                if (array[i] > max) {
+                    max = array[i];
+                    maxI = i;
+                };
+            };
+            
+            console.log("array - " + array);
+            console.log("min - " + min);
+            console.log("minI - " + minI);
+            console.log("max - " + max);
+            console.log("maxI - " + maxI);
+
+            if (minI < maxI) {
+                for (let i = minI + 1; i < maxI; i++) {
+                    mult *= array[i];
+                    console.log("mult - " + mult);       
+                };   
+            } else {
+                for (let i = minI - 1; i > maxI; i--) {
+                    mult *= array[i];
+                    console.log("mult - " + mult);       
+                };   
+            };
+
+            //Если мин и макс соседствуют, то произведение элементов 
+            //между ними = 0
+            if (Math.abs(maxI - minI) == 1) mult = 0;
+
+            //Вывод результатов
+
+            alert ("Количество элементов между максимальным и " +
+                "минимальным значениями: " + (Math.abs(maxI - minI) - 1) + "\n" +
+                "Произведение элементов расположенных между максимальным и " +
+                "минимальным значениями: " + mult);
+
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+    <head>
+        Дано действительное число а. Найти такое наименьшее
+        n, что: 1 + 2/3 + 3/5 + 4/7 + ... + k/n > a
+        <script>
+
+            //Ввод исходных данных
+
+            let a = +prompt("Введите число a:");
+            let sum = 1;
+            let k = 1;
+            let n = 1;
+
+            //Решение 
+            
+            do {
+
+                k++;
+                n += 2;
+                sum += k / n;
+                console.log("k =  " + k);
+                console.log("n =  " + n);
+                console.log("sum =  " + sum);
+
+            } while (sum <= a);
+
+            //Вывод результатов
+
+            alert("Сумма = " + sum + ";\na = " + a + "\n" +
+               "n = " + n);
+        
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

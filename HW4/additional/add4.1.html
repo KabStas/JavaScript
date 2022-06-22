@@ -1,0 +1,78 @@
+<html>
+    <head>
+        Даны целые числа А, В, С. Выяснить, что больше: 
+        удвоенная разность наибольшего и наименьшего из них или 
+        произведение меньшего и "среднего" числа.
+        <script>
+
+            //Ввод исходных данных
+            
+            let a = +prompt("Введите целое число А:");
+            let b = +prompt("Введите целое число B:");
+            let c = +prompt("Введите целое число C:");
+            let minNum;
+            let avgNum;
+            let maxNum;
+
+            //Решение
+            
+            if (a > b && a > c) {
+                maxNum = a;
+                if (b > c) {
+                    avgNum = b;
+                    minNum = c;
+                } else if (c > b) {
+                    avgNum = c;
+                    minNum = b;
+                } else {
+                    alert("Числа В и С равны, а они должны быть разные");    
+                };
+            } else if (b > a && b > c) {
+                maxNum = b;
+                if (a > c) {
+                    avgNum = a;
+                    minNum = c;
+                } else if (c > a) {
+                    avgNum = c;
+                    minNum = a;
+                } else {
+                    alert("Числа A и С равны, а они должны быть разные");    
+                };    
+            } else if (c > a && c > b) {   
+                maxNum = c;
+                if (a > b) {
+                    avgNum = a;
+                    minNum = b;
+                } else if (b > a) {
+                    avgNum = b;
+                    minNum = a;
+                } else {
+                    alert("Числа A и B равны, а они должны быть разные");    
+                };        
+            } else {
+                alert("Есть равные числа, а они должны быть разные");   
+            };
+
+            if (2 * (maxNum - minNum) > minNum * avgNum) {
+                alert("Удвоенная разность наибольшего и наименьшего чисел больше \
+                произведения меньшего и среднего числа");
+            }; 
+            if (2 * (maxNum - minNum) < minNum * avgNum) {
+                alert("Удвоенная разность наибольшего и наименьшего чисел меньше \
+                произведения меньшего и среднего числа");
+            }; 
+ 
+            console.log("a =  " + a);
+            console.log("b =  " + b);
+            console.log("c =  " + c);
+            console.log("maxNum =  " + maxNum);
+            console.log("avgNum =  " + avgNum);
+            console.log("minNum =  " + minNum);
+            console.log("2 * (maxNum - minNum) =  " + 2 * (maxNum - minNum));
+            console.log("minNum * avgNum = " + minNum * avgNum);
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

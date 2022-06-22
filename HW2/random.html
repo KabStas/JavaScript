@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <script>
+            let MinNumber;
+            let MaxNumber;
+            let GeneratedNumber;
+            MinNumber = Number(prompt("Введите минимальное значение диапазона"));
+            MaxNumber = Number(prompt("Введите максимальное значение диапазона"));
+            
+            GeneratedNumber = Math.floor(Math.random() * (MaxNumber - MinNumber + 1)) + MinNumber; 
+           
+            alert("Сгенерированное случайное число из диапазона от " + MinNumber + 
+                " до " + MaxNumber + " - " + GeneratedNumber);
+           
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

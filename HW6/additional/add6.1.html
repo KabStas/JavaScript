@@ -1,0 +1,99 @@
+<html>
+    <head>
+        Вычислить матрицу по заданному выражению
+        3*T ^T + E + T ^2, 
+        где T – треугольная квадратная матрица порядка N, 
+        E – единичная матрица порядка N, 
+        T ^T - транспонированная матрица T.
+        <script>
+
+            //Ввод исходных данных
+            let T = [
+                [1, 0, 0],
+                [7, 8, 0],
+                [1, 4, 5]
+            ];
+            let E = [
+                [1, 0, 0],
+                [0, 1, 0],
+                [0, 0, 1]   
+            ];
+            let transpT = [
+                [1, 7, 1],
+                [0, 8, 4],
+                [0, 0, 5]   
+            ];
+            let exp1 = [[]];    // 3 * transpT
+            let exp2 = [[]];    //exp1 + E  
+            let exp3 = [[]];    //T^2
+            let exp4 = [[]];    //exp2 + exp3
+            
+            //Решение
+            
+            for (let i = 0; i < transpT.length; i++) {
+
+                exp1[i] = [];
+
+                for (let j = 0; j < transpT[i].length; j++) {
+
+                    exp1[i].push( transpT[i][j] * 3 );
+                }
+            } 
+
+            console.log ("траспонированная матрица");
+            console.log (transpT);
+            console.log ("траспонированная матрица после умножения на 3");
+            console.log (exp1);
+
+            for (let i = 0; i < exp1.length; i++) {
+                exp2[i] = [];
+                for (let j = 0; j < exp1[i].length; j++) {
+                    exp2[i].push( exp1[i][j] + E[i][j] );
+                }
+            } 
+            console.log ("единичная матрица");
+            console.log (E);
+            console.log ("результат после сложения 3*Т^T и Е");
+            console.log (exp2);
+
+            
+            for (let i = 0; i < T.length; i++) {
+
+                exp3[i] = [];
+
+                for (let j = 0; j < T.length; j++) {
+
+                    exp3[i][j] = 0;
+                    
+                    for (let k = 0; k < T.length; k++) {
+
+                        exp3[i][j] += T[i][k] * T[k][j];  
+ 
+                    }
+                }
+            }
+            
+            console.log ("треугольная квадратная матрица T"); 
+            console.log (T);
+            console.log ("результат после Т^2"); 
+            console.log (exp3);
+
+            for (let i = 0; i < exp2.length; i++) {
+
+                exp4[i] = [];
+
+                for (let j = 0; j < exp2.length; j++) {
+                       
+                    exp4[i].push( exp2[i][j] + exp3[i][j] );
+                }
+            }
+
+            //Вывод результатов
+            console.log ("итоговый результат");
+            console.log (exp4);
+
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

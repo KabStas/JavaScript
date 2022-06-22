@@ -1,0 +1,38 @@
+<html>
+    <head>
+        Написать программу, которая по номеру месяца, выводит его название. 
+        После ввода исходных данных проверить их
+        на соответствие требованиям, т.е. если пользователь ввёл
+        не число сообщить ему об этом и определение месяца не
+        проводить
+        <script>
+            
+            //Ввод исходных данных
+            let monthNumber = +prompt("Введите номер месяца: ");
+            
+            //Решение
+            if (isNaN( monthNumber )) { 
+                alert("Это не число!");
+            } else {
+                switch (monthNumber) {
+                    case 1: alert(monthNumber + "-й месяц - январь"); break;
+                    case 2: alert(monthNumber + "-й месяц - февраль"); break; 
+                    case 3: alert(monthNumber + "-й месяц - март"); break; 
+                    case 4: alert(monthNumber + "-й месяц - апрель"); break; 
+                    case 5: alert(monthNumber + "-й месяц - май"); break; 
+                    case 6: alert(monthNumber + "-й месяц - июнь"); break; 
+                    case 7: alert(monthNumber + "-й месяц - июля"); break; 
+                    case 8: alert(monthNumber + "-й месяц - август"); break; 
+                    case 9: alert(monthNumber + "-й месяц - сентябрь"); break; 
+                    case 10: alert(monthNumber + "-й месяц - октябрь"); break; 
+                    case 11: alert(monthNumber + "-й месяц - ноябрь"); break; 
+                    case 12: alert(monthNumber + "-й месяц - декабрь"); break;
+                    default: alert("Нет месяца с таким номером");
+                }
+            }
+
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

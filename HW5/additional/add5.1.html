@@ -1,0 +1,41 @@
+<html>
+    <head>
+        Вычислить количество корней К: 
+        Корень(Корень(Корень(Корень(Корень(2)+3)+4)+5)+...),
+        пока результат вычислений не превысит заданного N.
+        <script>
+
+            //Ввод исходных данных
+            
+            let N = +prompt("Введите число N:");
+            let num = 2;
+            let result = 0;
+            let count = 0;
+            let calc = 0; 
+
+            //Решение
+
+            do {
+                
+                calc = Math.sqrt(result + num);
+                count++;
+                console.log ("result + num = " + (result + num));
+                result = calc;
+                num++;
+                console.log ("count = " + count);
+                console.log ("calc = " + calc);
+                console.log ("result = " + result);
+
+
+            } while (result <= N);
+            
+            //Вывод результатов
+
+            alert("Количество корней: " + count);
+           
+ 
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

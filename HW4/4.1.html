@@ -1,0 +1,46 @@
+<html>
+    <head>
+        Даны точки A ( x1, y1 ), В ( х2, у2 ), С ( х3, у3 ). 
+        Выяснить, что больше: площадь круга с радиусом ОА,
+        площадь квадрата со стороной ОВ или площадь прямоугольника со сторонами АС и ВС. 
+        <script>
+
+             //Ввод исходных данных
+            let x1 = +prompt("Введите координату х точки А:");
+            let y1 = +prompt("Введите координату у точки А:");
+            let x2 = +prompt("Введите координату х точки В:");
+            let y2 = +prompt("Введите координату у точки В:");
+            let x3 = +prompt("Введите координату х точки С:");
+            let y3 = +prompt("Введите координату у точки С:");
+            let Skr;
+            let Skv;
+            let Spr;
+            let RadOA;
+            let StOB;
+            let StAC;
+            let StBC;
+
+            //Решение
+            RadOA = Math.sqrt( Math.pow(x1, 2) + Math.pow(y1, 2) );
+            StOB = Math.sqrt( Math.pow(x2, 2) + Math.pow(y2, 2) );
+            StAC = Math.sqrt( Math.pow(x1 - x3, 2) + Math.pow(y1 - y3, 2) );
+            StBC = Math.sqrt( Math.pow(x2 - x3, 2) + Math.pow(y2 - y3, 2) );
+            Skr = Math.PI * Math.pow(RadOA, 2); 
+            Skv = Math.pow(StOB, 2);
+            Spr = StAC * StBC;
+            
+            if (Skr > Skv && Skr > Spr) {
+                alert("Площадь круга больше");
+            } else if (Skv > Skr && Skv > Spr){
+                alert("Площадь квадрата больше");
+            } else if (Spr > Skr && Spr > Skv) {
+                alert("Площадь прямоугольника больше");
+            } else {
+                alert("Имеются равные площади");   
+            };
+            
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

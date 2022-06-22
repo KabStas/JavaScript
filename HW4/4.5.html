@@ -1,0 +1,29 @@
+<html>
+    <head>
+        Вычислить значение заданной функции. <br>
+        <p style="margin-left: 45px;"> -x2-4x-3, если х <= -1</p>
+        y(x) =  x+1, если -1 < x <= 1               
+        <p style="margin-left: 45px;"> x/2, если x > 1 </p>
+        <script>
+            
+            //Ввод исходных данных
+            let x = +prompt("Введите x: ");
+            let y;
+            
+            //Решение
+            if (x <= -1) { 
+                y = -(x**2) - 4 * x - 3;
+            } else if (x > -1 && x <= 1) {
+                y = x + 1;
+            } else {
+                y = 2/x;
+            }
+
+            //Вывод результата
+            alert("y = " + y);
+
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>

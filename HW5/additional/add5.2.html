@@ -1,0 +1,38 @@
+<html>
+    <head>
+        Вычислять сумму, пока очередное слагаемое не станет
+        по модулю меньше Е:
+        (-1)^1/(1*(2*1+1)+
+        (-1)^2/(2*(2*2+1)+
+        (-1)^3/(3*(2*3+1)+...
+        <script>
+            
+            //Ввод исходных данных
+
+            let E = +prompt("Введите число E:");
+            let sum = 0;
+            let num = 1;
+            let subsum = 0;
+
+            //Решение 
+            
+            do {
+                subsum = ((- 1) ** num) / (num * (2 * num + 1));
+                console.log("num =  " + num);
+                console.log("subsum =  " + subsum);
+                num++;
+                sum += subsum;
+                console.log("sum =  " + sum);
+
+            } while (Math.abs(subsum) >= E);
+
+            //Вывод результатов
+
+            alert("Сумма = " + sum + ";\nМодуль очередного слагаемого = " + 
+                Math.abs(subsum) + ";\n" + "E = " + E);
+             
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
