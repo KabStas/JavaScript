@@ -1,0 +1,115 @@
+<html>
+    <head>
+        В неориентированном графе требуется найти минимальный путь между двумя
+        вершинами. Ввод номеров вершин осуществить с клавиатуры. В качестве результата
+        вывести сначала L – длину кратчайшего пути (количество ребер, которые
+        нужно пройти), а затем сам путь. Если пути нет, нужно вывести -1.    
+        <script>
+            //'use strict'
+           
+            //проверка на корректность введенных данных
+            function fillingWithCorrectData (text) {
+            
+                let number;
+                count = 0;
+                do {
+                    number = +prompt(text);
+                    count++;
+                    
+                    if (count == 3) {
+                        number = Math.round(10*Math.random());
+                        alert("Введено некорректное число 3 раза. Оно " + 
+                        `будет cгенерировано случайным образом. Число равно ${number}`); 
+                    }
+                    
+                } while ((number < 0 || number > 10 || isNaN(number)) && count < 3);
+
+                return number;
+            }
+
+            function bfs (top1, top2) {
+
+                for (let i = 0; i < dist.length; i++) {
+                    dist[i] = Infinity;    
+                }
+                for (let i = 0; i < way.length; i++) {
+                    way[i] = -1;    
+                }
+
+                dist[top1] = 0;
+                queue.push(top1);
+                
+                while (queue.length > 0) {
+
+                    v = queue.shift();
+                
+                    for (let i of list[v]) {
+
+                        if (dist[i] > dist[v] + 1) {
+                            way[i] = v;
+                            dist[i] = dist[v] + 1;
+                            queue.push(i);
+                        }
+                    }   
+                }
+                
+                while (top2 != -1){
+                    path.push(top2);
+                    top2 = way[top2];
+                }
+                return path;
+            }
+
+            //Ввод данных
+            let v;
+            let L;
+            let top1;
+            let top2;
+            let list = [];
+            list[0] = [1, 5];               //1: 2,6
+            list[1] = [0, 8];               //2: 1,9
+            list[2] = [3, 8];               //3: 4,9
+            list[3] = [2, 4, 5, 6];         //4: 3,5,6,7
+            list[4] = [3, 8, 9];            //5: 4,9,10
+            list[5] = [0, 3, 6];            //6: 1,4,7
+            list[6] = [3, 5, 7];            //7: 4,6,8
+            list[7] = [];                   //8: 
+            list[8] = [1, 2, 4, 9];         //9: 2,3,5,10
+            list[9] = [4, 8];               //10: 5,9
+
+
+            let dist = new Array(list.length); 
+            let way = new Array(list.length); 
+            let queue = [];
+            let path = [];
+            top1 = fillingWithCorrectData(`Введите номер первой вершины (1-10):`);
+            top2 = fillingWithCorrectData(`Введите номер второй вершины (1-10):`);
+
+            //Решение
+
+            path = bfs(top1-1, top2-1);
+            L = path.length - 1;
+            path.reverse();
+
+            //для вывода пути в привычном обывателю виде, когда нумерация начинается с 1
+            for (let i = 0; i< path.length; i++) {
+                path[i] += 1;
+            }
+
+            //Вывод результатов
+
+            document.write("<br><b>Решение:</b></br>");
+
+            if (path.length == 1) {
+                document.write("-1");
+            } else {
+                document.write(`Длина кратчайшего пути из вершины '${top1}' в вершину '${top2}': <b>${L}</b>`);
+                document.write("<br><b>Путь:</br>");   
+                document.write(path); 
+            }   
+            
+        </script>
+    </head>
+    <body>		
+    </body>
+</html> 
