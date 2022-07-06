@@ -1,0 +1,40 @@
+<html>
+    <head>
+        Создайте класс "банковский счёт", который имеет следующие атрибуты: 
+        номер; 
+        вкладчик; 
+        денежная сумма; 
+        годовой процент. 
+        Добавьте методы осуществляющие следующие операции: 
+        внести средства; 
+        начислить проценты. 
+        Создайте массив элементов класса "банковский счёт"    
+        <script>
+            class BankAccount {
+                constructor(number, holder, sum, interest) {
+                    this.number = number;
+                    this.holder = holder;
+                    this.sum = sum;
+                    this.interest = interest;    
+                }
+                putFunds(funds) {
+                    this.sum += funds  
+                }
+                chargeInterest() {
+                    this.sum *= this.interest 
+                }
+            }
+
+            let account1 = new BankAccount(1, "Adam", 1500, 1.01);
+            let account2 = new BankAccount(2, "Beck", 1800, 1.01);
+            let arrayOfAccounts = [account1, account2];
+            account1.chargeInterest();
+            account2.chargeInterest();
+            account1.putFunds(1000);
+            account2.putFunds(2000);
+            console.log(arrayOfAccounts);
+        </script>
+    </head>
+    <body>		
+    </body>
+</html> 
