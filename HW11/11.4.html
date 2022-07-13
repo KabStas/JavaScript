@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Вход на сайт</title>
+    </head>
+    <body>
+        <button onclick="signUp()">Зарегистрироваться</button>
+        <button onclick="signIn()">Войти</button>
+        <script>  
+            'use strict'
+
+            function hashing(string) {
+
+                let sum = 0;
+                let hash;
+
+                for (let i = 0; i < string.length; i++) {
+
+                    sum += string.charCodeAt(i);  
+                }
+
+                hash = sum % 256;
+                return hash;       
+            }
+
+            function signUp() {
+
+                let userName = prompt("Введите имя пользователя");
+                let userPassword = prompt("Введите пароль");
+                let hash = hashing(userPassword);
+
+                dataArray.set(userName, hash);
+                console.log(dataArray);
+            }
+
+            function signIn() {
+
+                let userName = prompt("Введите имя пользователя");
+                let userPassword = prompt("Введите пароль");
+                let hash = hashing(userPassword);
+
+                if (!dataArray.has(userName)) {
+                    alert("Пользователь не найден");
+                } else if (hash == dataArray.get(userName)) {
+                    alert("Успешный вход на сайт");  
+                } else {
+                    alert("Неверный пароль");
+                }  
+            }  
+
+            let dataArray = new Map();
+
+        </script>
+
+    </body>
+</html>
