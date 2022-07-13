@@ -1,30 +1,56 @@
 <html>
     <head>
-        Дополните созданный ранее скрипт программным кодом для вычисления 
-        хэш-кода пароля qwerty в шестнадцатиричном виде с помощью созданной 
-        в ходе выполнения предыдущей задачи функции. 
+        Дополните созданный ранее скрипт программным кодом, который позволит 
+        путем прямого перебора подобрать другой пароль, имеющий такой же хэш-код, 
+        что и пароль qwerty. Пароль считать состоящим только из десятичных 
+        цифр, строчных и прописных букв латинского алфавита. Ограничимся 
+        паролями, состоящими лишь из двух символов  
         <script>  
             'use strict'
 
-            function hashing(string, numSystem) {
+            function hashing(string) {
 
-                hash = 0;
+                let sum = 0;
+                let hash;
+
                 for (let i = 0; i < string.length; i++) {
 
-                    hash += string.charCodeAt(i);  
+                    sum += string.charCodeAt(i);  
                 }
-                hash %= 256;
-                return hash.toString(numSystem);; 
-                
+
+                hash = sum % 256;
+                return hash;       
             }
 
-            let hash;
+            function directSearch(searchedHash) {
 
-            hash = hashing("qwerty", 16);
+                let string = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                let hash;
+
+                for (let i = 0; i < string.length; i++) {
+                     
+                    for (let j = 0; j < string.length; j++) {
+                        
+                        password = string[i] + string[j];
+                        hash = hashing(password);
+                        
+                        if (hash == searchedHash) {
+                            return password;
+                        }
+                    }    
+                } 
+                return password;
+            }
+
+            let searchedHash;
+            let password;
+
+            searchedHash = hashing("qwerty");
+            password = directSearch(searchedHash);
             
             document.write(`<br><b>Решение:</b></br>`);
-            document.write(`Хэш-код: ${hash}`);
-   
+            document.write(`Пароль с таким же хэш-кодом: ${password}`);
+
         </script>
     </head>
     <body>		

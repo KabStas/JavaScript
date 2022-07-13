@@ -16,7 +16,7 @@
                     hash += string.charCodeAt(i);  
                 }
                 hash %= 256;
-                return hash.toString(numSystem);; 
+                return hash.toString(numSystem); 
                 
             }
 
@@ -25,7 +25,7 @@
             let hash;
 
             hash = hashing(password, numeralSystem);
-            
+
             document.write(`<br><b>Решение:</b></br>`);
             document.write(`Пароль: ${password}</br>`);
             document.write(`Система счисления: ${numeralSystem}</br>`);
