@@ -23,7 +23,9 @@
             let password = prompt("Введите пароль:");
             let numeralSystem = +prompt("Введите систему счисления (2,8,10,16):");
             let hash;
+
             hash = hashing(password, numeralSystem);
+            
             document.write(`<br><b>Решение:</b></br>`);
             document.write(`Пароль: ${password}</br>`);
             document.write(`Система счисления: ${numeralSystem}</br>`);

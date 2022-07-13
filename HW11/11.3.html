@@ -1,0 +1,32 @@
+<html>
+    <head>
+        Дополните созданный ранее скрипт программным кодом для вычисления 
+        хэш-кода пароля qwerty в шестнадцатиричном виде с помощью созданной 
+        в ходе выполнения предыдущей задачи функции. 
+        <script>  
+            'use strict'
+
+            function hashing(string, numSystem) {
+
+                hash = 0;
+                for (let i = 0; i < string.length; i++) {
+
+                    hash += string.charCodeAt(i);  
+                }
+                hash %= 256;
+                return hash.toString(numSystem);; 
+                
+            }
+
+            let hash;
+
+            hash = hashing("qwerty", 16);
+            
+            document.write(`<br><b>Решение:</b></br>`);
+            document.write(`Хэш-код: ${hash}`);
+   
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
