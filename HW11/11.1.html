@@ -1,0 +1,36 @@
+<html>
+    <head>
+        Для хранения паролей используется хэш-функция: (charCode(C1) +charCode(C2) +..... +charCode(Cn) ) mod 256. 
+        Создайте скрипт, который будет содержать JavaScript-функцию, 
+        способную вычислять для произвольной строки символов значение этой 
+        хэш-функции в любой системе счисления в зависимости от передаваемого в 
+        функцию параметра
+        <script>  
+            'use strict'
+
+            function hashing(string, numSystem) {
+
+                hash = 0;
+                for (let i = 0; i < string.length; i++) {
+
+                    hash += string.charCodeAt(i);  
+                }
+                hash %= 256;
+                return hash.toString(numSystem);; 
+                
+            }
+
+            let password = prompt("Введите пароль:");
+            let numeralSystem = +prompt("Введите систему счисления (2,8,10,16):");
+            let hash;
+            hash = hashing(password, numeralSystem);
+            document.write(`<br><b>Решение:</b></br>`);
+            document.write(`Пароль: ${password}</br>`);
+            document.write(`Система счисления: ${numeralSystem}</br>`);
+            document.write(`Хэш-код: ${hash}`);
+   
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
