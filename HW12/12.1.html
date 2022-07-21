@@ -1,0 +1,112 @@
+<html>
+    <head>
+        Создайте класс для реализации кэширования результатов вычисления функции calculateSum, 
+        код которой приведен в материалах к занятию в файле cache.js. В качестве алгоритма 
+        кэширования выберите LRU. Для реализации кэша используйте класс Array.
+        <script>  
+            'use strict'
+
+            class Cache {
+                
+                get(number) {
+
+                    let temp;
+
+                    for (let i = 0; i < 3; i++) {
+
+                        if (cacheArray[i][0] == number) {  // если введенное число есть в кэше
+
+                            temp = cacheArray.splice(i,1); //удаляем из очереди
+                            cacheArray.push(temp[0]);      //записываем в конец
+                            return cacheArray[i][1];
+                        };
+                    }
+                    return undefined;
+                } 
+
+                set(number, result) {
+
+                    if (cacheArray.length == 3) {   //если кэш заполнен
+                        cacheArray.splice(0,1);     //удаляем первый из очереди
+                    }   
+                     
+                    cache = [number, result];
+                    cacheArray.push(cache);         //записываем новый элемент в конец  
+                }
+            }
+            
+            function calculateSum(number) {
+
+                let sum = 0;
+                for (let i = 0; i < number; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+
+            //заполним кэш
+            let cache = {};
+            let cacheArray = [];
+            let number = 100_000;
+            let input;
+
+            document.write(`<br><b>Решение:</b></br>`);
+            document.write("Данные в кэше на начальном этапе:");
+
+            for (let i = 0; i < 3; i++) {
+
+                cache = new Cache();
+                cache.set(number, calculateSum(number));
+                number += 100_000;
+                document.write("<br>" + cacheArray[i]);
+            }
+             
+            //решение
+
+            input = Math.round(+prompt('Введите целое положительное число:'));
+            console.log(input);
+
+            if (isNaN(input)) {
+
+                alert(`Введено не число`);
+            } else if (input == 0) {
+
+            } else {
+                cache = new Cache();
+                let result = cache.get(input);
+                
+                if (result == undefined) {
+
+                    alert(`Значение для числа ${input} не найдено в кэше.`);
+                    result = calculateSum(input);
+                    alert(`Значение для числа ${input} равно ${result}.\nИдет перезапись кэша...`);
+                    cache.set(input, result);
+                    document.write("<br>Данные в кэше после перезаписи:");
+                    for (let i = 0; i < 3; i++) {
+                        document.write("<br>" + cacheArray[i]);
+                    }
+
+                } else {
+                    alert(`Значение для числа ${input} найдено в кэше и равно ${result};`);
+
+                    document.write("<br>Данные в кэше после чтения:");
+                
+                    for (let i = 0; i < 3; i++) {
+                        document.write("<br>" + cacheArray[i]);
+                    }
+                }
+            }
+        </script>
+    </head>
+    <body>		
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
