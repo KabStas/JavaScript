@@ -550,9 +550,9 @@
 
                     countryResults.splice(4, countryResults.length - 4);            //во 2-й круг выходит 4 страны  
                     racersResults2 = selectingSecondRoundRacers();                  //выбираем гонщиков из этих стран для дальнейшего участия
-                    racersResults2 = resultOfStage("stage2_1");                     //результаты гонщиков на этапе 1
+                    racersResults2 = secondRoundResultOfStage("stage2_1");                     //результаты гонщиков на этапе 1
                     countryResults = countryResult2(racersResults2, "stage2_1");    //определяем место страны на этапе 1
-                    racersResults2 = resultOfStage("stage2_2");                     //результаты гонщиков на этапе 2
+                    racersResults2 = secondRoundResultOfStage("stage2_2");                     //результаты гонщиков на этапе 2
                     countryResults = countryResult2(racersResults2, "stage2_2");    //определяем место страны на этапе 2
                     racersResults2 = secondRoundResults(racersResults2, "round2");  //определяем итоговое место гонщика после 2 круга
                     countryResults = secondRoundResults(countryResults, "round2");  //определяем итоговое место страны после 2 круга
