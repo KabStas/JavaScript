@@ -1,0 +1,257 @@
+<html>
+    <head>
+        Соревнования по велоспорту <br>
+    </head>
+    <body> 
+        <p>
+        <input type="button" value="Начать гонку" onclick="start()"></p>
+        <input type="button" value="2 этап" onclick="startSecondRound()"></p>
+        </p>
+        <script>
+            'use strict'
+
+            function nameAutoSelection() {
+
+                let nameArray = ['Ivan','John','Olaf','Peter','Alexander','Mohamed','Steven','Boris',
+                    'Jack','Albert','Oleg','Gunter','Jurgen','Vladimir','Sergey','Jang'];
+
+                return nameArray[Math.floor( 16*Math.random() )];
+                }
+
+            function surnameAutoSelection() {
+
+                let surnameArray = ['Ivanov','Johnson','Stepanov','Peterson','Alexandroff','Al-Mohamed',
+                    'Stevenson','Borisov', 'Abdul-Jabar', 'Sergeev','Vladimirov','Stepson','Olavson',
+                    'Lee','Chan','Yang'];
+
+                return surnameArray[Math.floor( 16*Math.random() )];
+            }
+
+            function countryAutoSelection() {
+ 
+                let L = countryArray.length;
+                let country = countryArray.splice( Math.floor(L*Math.random()),1);
+
+                return country.toString();
+            }
+            
+            function getRacers() {
+
+                let racer = {};
+                let racers = [];
+
+                for(let i = 0; i < 4; i++) {
+
+                    racer = new Racer(i+1);
+                    racers.push(racer);
+                }
+                return racers;
+            }
+
+            function generatingRacerTime() {
+                
+                let minutes = Math.floor( Math.random()*10 + 10);
+                let seconds = Math.floor( 60 * Math.random());
+
+                return (minutes + (seconds/100)).toFixed(2);
+            }
+
+            function getTeams() {
+
+                let team = {};
+                let teams = [];
+
+                for(let i = 0; i < countriesQuantity; i++) {
+
+                    team = new Team();
+                    
+                    teams.push(team);
+
+                }
+                return teams;
+            }
+            /*
+            function sortingRacersByStageTime(competition) {
+
+                let L = competition.teams.length;
+                              
+                for (let i = 0; i < L; i++) {
+                    competition.teams[i].racers.sort((a, b) => (a.result > b.result) ? 1 : -1);
+                }
+                return competition;
+
+            }
+*/
+            function racerTimeToCountryPlace(racerResultsTable, stageCount) {
+
+                let L = racerResultsTable.length;
+                let stageResult = [];
+                let teamResults = [];
+                let racerResult = {};
+                let teamResult = {};
+                
+                let stage = 'stage ' + stageCount;
+
+
+                
+                    for (let i = 0; i < L; i++) {
+                        racerResult = {};
+                        racerResult.country = racerResultsTable[i].country;
+                        racerResult[stage] = racerResultsTable[i][stage];
+                        teamResults.push(racerResult);
+
+                        if ((i+1) % 4 == 0) {
+                            
+                            teamResults.sort((a, b) => (a[stage] > b[stage]) ? 1 : -1);
+                            stageResult.push(teamResults[3]);
+                            teamResults = [];
+                        }
+                        
+                        for (let i = 0; i < L; i++) {
+
+                            stageResult.sort((a, b) => (a[stage] > b[stage]) ? 1 : -1);
+                        }
+                    }
+
+                    console.log("stageResult"); 
+                    console.table(stageResult); 
+
+                    L = stageResult.length
+
+                    for (let i = 0; i < L; i++) {
+                        teamResult = stageResult[i];
+                        teamResult.place = i+1;
+                        stageResult[i] = teamResult;
+
+                    }
+                    console.log("stageResult"); 
+                    console.table(stageResult); 
+
+                    if (stageCount == 1) {
+                        finalTable = stageResult;
+                    }
+
+                    
+
+               
+                
+                
+                //return stageResult;
+                console.log("finalTable"); 
+                console.table(finalTable); 
+                return finalTable;
+            }
+
+    
+            class Racer {
+                constructor(number, fullName, rating) {
+                    this.number = number; 
+                    this.fullName = nameAutoSelection() + " " + surnameAutoSelection();
+                    this.rating = Math.floor( Math.random()*5000 + 100);    
+                }
+                
+                doStage(competition, stageCount) {
+
+                    let L = competition.teams.length;
+                    let racerResult = {};
+                    let stage = 'stage ' + stageCount;
+
+                    if (stageCount == 1) { 
+                        for (let i = 0; i < L; i++) {
+                            
+                            for (let j = 0; j < 4; j++){
+                                racerResult = {};
+                                racerResult.country = competition.teams[i].country;
+                                racerResult.name = competition.teams[i].racers[j].fullName;
+                                racerResult[stage] = generatingRacerTime();
+                                racerResultsTable.push(racerResult);
+                            }  
+                        }
+                    }
+                    else {
+                        L = racerResultsTable.length;
+
+                        for (let i = 0; i < L; i++) {
+                            racerResult = racerResultsTable[i];
+                            racerResult[stage] = generatingRacerTime();
+                            racerResultsTable[i] = racerResult;
+                        }
+                    }
+                    return racerResultsTable;      
+                }     
+            }
+            
+            
+            class Team {
+                constructor(country, racers, result) {
+                    this.country = countryAutoSelection();
+                    this.racers = getRacers(); 
+                    
+                    //
+                    //getAverageRating();
+                } 
+                getStageResult(competition, stageCount) {
+                    racerResultsTable = new Racer().doStage(competition, stageCount);
+                    console.log("racerResultsTable");
+                    console.table(racerResultsTable);
+
+                    countryResultsTable = racerTimeToCountryPlace(racerResultsTable, stageCount);
+                    //racerResultsTable = new Racer().doStage(competition, stageCount);
+                    //console.table(racerResultsTable);
+                    //countryResultsTable = racerTimeToCountryPlace(racerResultsTable);
+
+                    //racerResultsTable = new Racer().doStage(competition, stageCount);
+                }
+
+            } 
+            
+            class Competition {
+                constructor(teams, stageCount) {
+                    this.teams = getTeams(); 
+                    this.stageCount = 1;
+                    //startSecondRound();
+                }
+                startFirstRound(competition) {
+                    let racerResultsTable = [];
+                    countryResultsTable = new Team().getStageResult(competition, this.stageCount);
+                    //console.table(countryResultsTable);
+                    this.stageCount ++;
+                    countryResultsTable = new Team().getStageResult(competition, this.stageCount);
+                    //console.table(countryResultsTable);
+                    //this.stageCount ++;
+                    //racerResultsTable = new Racer().doStage(competition, this.stageCount);
+                    //console.table(racerResultsTable);
+                    //countryResultsTable = new Team().getStageResult(competition);
+                    //console.table(countryResultsTable);
+                    //console.table(competition);
+                }
+                
+                
+            }
+
+          
+            
+            let countryResultsTable = [];
+            let racerResultsTable = [];
+            let finalTable = [];
+            let countryArray = ['Australia','Austria','Argentina','Belgia','Bulgary','Brazil',
+                    'Germany','Greece', 'Denmark', 'Egypt','Israil','India','Spain','Italy', 'Canada',
+                    'China','Korea','Mexico', 'Monaco', 'Norway','Poland','Russia','USA','Turkeye', 'Ukraine'];
+            let countriesQuantity = 5;
+    
+            function start() {
+                
+                let competition = new Competition();
+                new Competition().startFirstRound(competition);
+
+                //racerResultsTable = new Racer().doStage(competition);
+                
+                
+                
+                
+            }
+
+
+        </script>	   
+    </body>
+</html>

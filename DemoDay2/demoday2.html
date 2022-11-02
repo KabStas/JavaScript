@@ -24,6 +24,164 @@
         <script>
             'use strict'
 
+            /* VIEW */
+
+            function resultOutputByCountries() {
+
+                let resultTable = "<table>";
+                let count;
+
+                document.write("<br><b>Результаты после 1 круга:<br>");
+                document.write("<br>");
+                resultTable += "<tr><th>Страна</th><th>1 этап</th>" + 
+                    "<th>2 этап</th><th>3 этап</th><th>1 круг</th>";
+
+                for (let country of countryResults) {
+
+                    resultTable += "<tr>"; 
+                    count = 0;                  
+                    
+                    for (let elements in country) {
+
+                        if (count > 0) {
+                            resultTable += "<td>" + country[elements] + " место</td>";
+                        } else {
+                            resultTable += "<td>" + country[elements] + "</td>";   
+                        }
+                        if (count > 3) { break }
+                        count++;
+                    }
+                    resultTable += "</tr>";                  
+                }
+                resultTable += "</table>";                   
+                document.write(resultTable);
+            }
+
+            function resultOutputByRacers() {
+
+                let resultTable = "<table>";
+                let count;
+                document.write("<br>");
+                resultTable = "<table>";
+                resultTable += "<tr><th>Гонщик</th><th>Страна</th>" + 
+                    "<th>1 этап</th><th>2 этап</th><th>3 этап</th><th>1 круг</th>";
+
+                for (let racer of racersResults) {
+
+                    resultTable += "<tr>"; 
+                    count = 0;                  
+
+                    for (let elements in racer) {
+
+                        if (count > 2) {
+                            resultTable += "<td>" + racer[elements] + " место</td>";
+                        } else if (count == 1) {
+                            resultTable += "<td>"  + racer[elements] + "</td>"; 
+                        } else if (count == 2) {
+                            resultTable += "<td>" + racer[elements] + "</td>"; 
+                        }
+                        if (count > 5) { break }
+                        count++;
+                    }
+                    resultTable += "</tr>";                  
+                }
+                resultTable += "</table>";                   
+                document.write(resultTable);
+            }
+
+            function resultOutputByCountriesAfterSecondRound() {
+
+                let resultTable = "<table>";
+                let count;
+
+                document.write("<br>Результаты после 2 круга:<br>");
+                document.write("<br>");
+                document.write("Победитель - " + countryResults[0].name);   
+                resultTable += "<tr><th>Страна</th><th>1 этап</th>" + 
+                    "<th>2 этап</th><th>1 круг</th>";
+
+                for (let country of countryResults) {
+
+                    resultTable += "<tr>"; 
+                    count = 0;                  
+                    
+                    for (let elements in country) {
+
+                        if (count > 4) {
+                            resultTable += "<td>" + country[elements] + " место</td>";
+                        } else if (count == 0) {
+                            resultTable += "<td>" + country[elements] + "</td>"; 
+                        }
+                        count++;
+                    }
+                    resultTable += "</tr>";                  
+                }
+                resultTable += "</table>";                   
+                document.write(resultTable);
+            }
+
+            function resultOutputByRacersAfterSecondRound() {
+
+                let resultTable = "<table>";
+                let count;
+                resultTable = "<table>";
+                document.write("<br>");
+                resultTable = "<table>";
+                resultTable += "<tr><th>Гонщик</th><th>Страна</th>" + 
+                    "<th>1 этап</th><th>2 этап</th><th>2 круг</th>";
+
+                for (let racer of racersResults2) {
+
+                    resultTable += "<tr>"; 
+                    count = 0;                  
+
+                    for (let elements in racer) {
+
+                        if (count > 6) {
+                            resultTable += "<td>" + racer[elements] + " место</td>";
+                        } else if (count == 1) {
+                            resultTable += "<td>" + racer[elements] + "</td>";  
+                        } else if (count == 2) {
+                            resultTable += "<td>" + racer[elements] + "</td>"; 
+                        }
+                        count++;
+                    }
+                    resultTable += "</tr>";                  
+                }
+                resultTable += "</table>";                   
+                document.write(resultTable); 
+            }   
+
+            function resultOutputAfterFirstRound() {
+
+                resultOutputByCountries();
+                resultOutputByRacers();        
+            }
+
+            function resultOutputAfterSecondRound() {
+
+                resultOutputByCountriesAfterSecondRound();
+                resultOutputByRacersAfterSecondRound();   
+            }
+
+            function outputToConsole() {
+
+                console.log(racers);                            // массив гонщиков (можно посмотреть рейтинг, если надо)
+                console.log(racersResults);                     // рез-ты гонщиков после 1 круга
+                console.log(racersResults2);                    // рез-ты гонщиков после 2 круга
+                console.log(countryResults);                    // итоговые рез-ты стран  
+            }
+
+            function firstRoundOutputToConsole(parameter) {
+                console.log(`Результаты, занявшего 4-е место гонщика, по странам на ${parameter} 1-го круга`);
+                console.log(mapOfCountryResults);
+            }
+        
+            /* END VIEW */
+            
+            
+            /* MODEL */
+            
             class Racer {
                 constructor(number, fullName, rating, country) {
                     this.number = number; 
@@ -184,8 +342,8 @@
                     mapOfCountryResults.set(racer.country, i);
 
                 }
-                console.log(`Результаты, занявшего 4-е место гонщика, по странам на ${parameter} 1-го круга`);
-                console.log(mapOfCountryResults);
+
+                firstRoundOutputToConsole(parameter); //для проверки корректности расчетов
 
                 L = countryResults.length;
  
@@ -380,7 +538,7 @@
                 return racersResults2;
             }
 
-           function secondRoundResultOfStage(parameter) {
+            function secondRoundResultOfStage(parameter) {
 
                 for(let racerResults of racersResults2) {
 
@@ -390,146 +548,16 @@
                 racersResults2 = transformingTimeToPlace(racersResults2, parameter)
 
                 return racersResults2;
-           }
-            
-            
-            function resultOutputAfterFirstRound() {
-                
-                let resultTable = "<table>";
-                let count;
-
-                document.write("<br><b>Результаты после 1 круга:<br>");
-                document.write("<br>");
-                resultTable += "<tr><th>Страна</th><th>1 этап</th>" + 
-                    "<th>2 этап</th><th>3 этап</th><th>1 круг</th>";
-                
-                for (let country of countryResults) {
-
-                    resultTable += "<tr>"; 
-                    count = 0;                  
-                    
-                    for (let elements in country) {
-
-                        if (count > 0) {
-                            resultTable += "<td>" + country[elements] + " место</td>";
-                        } else {
-                            resultTable += "<td>" + country[elements] + "</td>";   
-                        }
-                        if (count > 3) { break }
-                        count++;
-                    }
-                    resultTable += "</tr>";                  
-                }
-                resultTable += "</table>";                   
-                document.write(resultTable);
-  
-                document.write("<br>");
-                resultTable = "<table>";
-                resultTable += "<tr><th>Гонщик</th><th>Страна</th>" + 
-                    "<th>1 этап</th><th>2 этап</th><th>3 этап</th><th>1 круг</th>";
-
-                for (let racer of racersResults) {
-
-                    resultTable += "<tr>"; 
-                    count = 0;                  
-
-                    for (let elements in racer) {
-
-                        if (count > 2) {
-                            resultTable += "<td>" + racer[elements] + " место</td>";
-                        } else if (count == 1) {
-                            resultTable += "<td>"  + racer[elements] + "</td>"; 
-                        } else if (count == 2) {
-                            resultTable += "<td>" + racer[elements] + "</td>"; 
-                        }
-                        if (count > 5) { break }
-                        count++;
-                    }
-                    resultTable += "</tr>";                  
-                }
-                resultTable += "</table>";                   
-                document.write(resultTable);
             }
+            
+            /* END MODEL */
+ 
+            /* CONTROLLER */
 
-            function resultOutputAfterSecondRound() {
-                
-                let resultTable = "<table>";
-                let count;
+            function startFirstRound() { // 1-й круг
 
-                document.write("<br>Результаты после 2 круга:<br>");
-                document.write("<br>");
-                resultTable += "<tr><th>Страна</th><th>1 этап</th>" + 
-                    "<th>2 этап</th><th>1 круг</th>";
-                
-                for (let country of countryResults) {
-
-                    resultTable += "<tr>"; 
-                    count = 0;                  
-                    
-                    for (let elements in country) {
-
-                        if (count > 4) {
-                            resultTable += "<td>" + country[elements] + " место</td>";
-                        } else if (count == 0) {
-                            resultTable += "<td>" + country[elements] + "</td>"; 
-                        }
-                        count++;
-                    }
-                    resultTable += "</tr>";                  
-                }
-                resultTable += "</table>";                   
-                document.write(resultTable);
-
-                resultTable = "<table>";
-                document.write("<br>");
-                resultTable = "<table>";
-                resultTable += "<tr><th>Гонщик</th><th>Страна</th>" + 
-                    "<th>1 этап</th><th>2 этап</th><th>2 круг</th>";
-
-                for (let racer of racersResults2) {
-
-                    resultTable += "<tr>"; 
-                    count = 0;                  
-
-                    for (let elements in racer) {
-
-                        if (count > 6) {
-                            resultTable += "<td>" + racer[elements] + " место</td>";
-                        } else if (count == 1) {
-                            resultTable += "<td>" + racer[elements] + "</td>";  
-                        } else if (count == 2) {
-                            resultTable += "<td>" + racer[elements] + "</td>"; 
-                        }
-                        count++;
-                    }
-                    resultTable += "</tr>";                  
-                }
-                resultTable += "</table>";                   
-                document.write(resultTable);
-            }
-
-            let country;
-            let input;
-            let racer = {};
-            let racerResults = {};
-            let racers = [];
-            let racersResults = [];
-            let racersResults2 = [];
-            let L; //названия переменных должны быть говорящими, специально оставляю L для сокращенной записи длины массива
-            let mapOfCountryResults = new Map;
-            let countryResults = [];
-            let countryArray = ['Australia','Austria','Argentina','Belgia','Bulgary','Brazil',
-                'Germany','Greece', 'Denmark', 'Egypt','Israil','India','Spain','Italy', 'Canada',
-                'China','Korea','Mexico', 'Monaco', 'Norway','Poland','Russia','USA','Turkeye', 'Ukraine'];
-            let countriesQuantity = +prompt("Введите количество стран-участниц соревнований (5 - 25):");
-
-            if (countriesQuantity >= 5 && countriesQuantity <= 25) {
-  
                 //создаем массив гонщиков
-
                 racers = racerCreating();
-
-                // 1-й круг
 
                 racersResults = resultOfStage("stage1_1");                      //результаты гонщиков на этапе 1
                 countryResults = countryResult(racersResults, "stage1_1");      //определяем место страны на этапе 1
@@ -540,30 +568,43 @@
                 racersResults = firstRoundResults(racersResults, "round1");     //определяем итоговое место гонщика после 1 круга
                 countryResults = firstRoundResults(countryResults, "round1");   //определяем итоговое место страны после 1 круга
                 resultOutputAfterFirstRound();                                  //вывод итогового протокола после 1 круга
-
-                // 2-й круг
-
-                input = prompt('Для проведения второго круга требуется подтверждение пользователя.\n' + 
-                    'Нажмите "ок" для подтверждения или "отмена"');
-
-                if (input != null) {
-
-                    countryResults.splice(4, countryResults.length - 4);            //во 2-й круг выходит 4 страны  
-                    racersResults2 = selectingSecondRoundRacers();                  //выбираем гонщиков из этих стран для дальнейшего участия
-                    racersResults2 = secondRoundResultOfStage("stage2_1");                     //результаты гонщиков на этапе 1
-                    countryResults = countryResult2(racersResults2, "stage2_1");    //определяем место страны на этапе 1
-                    racersResults2 = secondRoundResultOfStage("stage2_2");                     //результаты гонщиков на этапе 2
-                    countryResults = countryResult2(racersResults2, "stage2_2");    //определяем место страны на этапе 2
-                    racersResults2 = secondRoundResults(racersResults2, "round2");  //определяем итоговое место гонщика после 2 круга
-                    countryResults = secondRoundResults(countryResults, "round2");  //определяем итоговое место страны после 2 круга
-                    resultOutputAfterSecondRound();                                 //вывод итогового протокола после 2 круга
-                    alert("Победитель - " + countryResults[0].name);   
-                } 
-                console.log(racers);            // массив гонщиков (можно посмотреть рейтинг, если надо)
-                console.log(racersResults);     // рез-ты гонщиков после 1 круга
-                console.log(racersResults2);    // рез-ты гонщиков после 2 круга
-                console.log(countryResults);    // итоговые рез-ты стран  
             }
+            
+            function startSecondRound() { // 2-й круг
+
+                countryResults.splice(4, countryResults.length - 4);            //во 2-й круг выходит 4 страны  
+                racersResults2 = selectingSecondRoundRacers();                  //выбираем гонщиков из этих стран для дальнейшего участия
+                racersResults2 = secondRoundResultOfStage("stage2_1");          //результаты гонщиков на этапе 1
+                countryResults = countryResult2(racersResults2, "stage2_1");    //определяем место страны на этапе 1
+                racersResults2 = secondRoundResultOfStage("stage2_2");          //результаты гонщиков на этапе 2
+                countryResults = countryResult2(racersResults2, "stage2_2");    //определяем место страны на этапе 2
+                racersResults2 = secondRoundResults(racersResults2, "round2");  //определяем итоговое место гонщика после 2 круга
+                countryResults = secondRoundResults(countryResults, "round2");  //определяем итоговое место страны после 2 круга
+                resultOutputAfterSecondRound();                                 //вывод итогового протокола после 2 круга
+                outputToConsole();           
+            }
+            
+            let country;
+            let input;
+            let racer = {};
+            let racerResults = {};
+            let racers = [];
+            let racersResults = [];
+            let racersResults2 = [];
+            let L;                 //для сокращенной записи длины массива
+            let mapOfCountryResults = new Map;
+            let countryResults = [];
+            let countryArray = ['Australia','Austria','Argentina','Belgia','Bulgary','Brazil',
+                'Germany','Greece', 'Denmark', 'Egypt','Israil','India','Spain','Italy', 'Canada',
+                'China','Korea','Mexico', 'Monaco', 'Norway','Poland','Russia','USA','Turkeye', 'Ukraine'];
+
+            let countriesQuantity = 5;
+
+            startFirstRound();
+            startSecondRound();
+
+            /* END CONTROLLER */
+           
         </script>	   
     </body>
 </html>
